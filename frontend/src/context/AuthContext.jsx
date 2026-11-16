@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import api from '../api/axios';
+import { mockUser } from '../data/mockData';
 
 const AuthContext = createContext();
 
@@ -11,23 +11,30 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
     if (token && savedUser) {
-      try { setUser(JSON.parse(savedUser)); } catch { localStorage.clear(); }
+      setUser(JSON.parse(savedUser));
     }
     setLoading(false);
   }, []);
 
+  // MOCK LOGIN (Backend ke bina)
   const login = async (email, password) => {
-    const { data } = await api.post('/auth/login', { email, password });
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data.user));
-    setUser(data.user);
+    // Fake loading delay taake spinner dikhe
+    await new Promise(resolve => setTimeout(resolve, 800)); 
+    
+    const fakeUser = { ...mockUser, email };
+    localStorage.setItem('token', 'fake-jwt-token-123');
+    localStorage.setItem('user', JSON.stringify(fakeUser));
+    setUser(fakeUser);
   };
 
+  // MOCK REGISTER (Backend ke bina)
   const register = async (name, email, password) => {
-    const { data } = await api.post('/auth/register', { name, email, password });
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data.user));
-    setUser(data.user);
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    const fakeUser = { ...mockUser, name, email };
+    localStorage.setItem('token', 'fake-jwt-token-123');
+    localStorage.setItem('user', JSON.stringify(fakeUser));
+    setUser(fakeUser);
   };
 
   const logout = () => {
