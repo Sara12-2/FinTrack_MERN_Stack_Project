@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Repeat, Play, Pause, Calendar, AlertCircle } from 'lucide-react';
+import { Repeat, Play, Pause, Calendar, AlertCircle, Plus, CreditCard } from 'lucide-react';
 import { formatCurrency } from '../utils/formatCurrency';
+import Button from '../components/ui/Button';
 
 const initialRecurring = [
   { id: 1, title: 'Netflix Subscription', amount: 1500, frequency: 'Monthly', nextDate: '2026-12-01', status: 'Active' },
@@ -11,7 +12,6 @@ const initialRecurring = [
 export default function Recurring() {
   const [recurrings, setRecurrings] = useState(initialRecurring);
 
-  // Active aur Paused toggle karne ka function
   const toggleStatus = (id) => {
     setRecurrings(recurrings.map(item => 
       item.id === id 
@@ -20,81 +20,83 @@ export default function Recurring() {
     ));
   };
 
-  // Total Monthly Cost Calculate karein (sirf Active items ka)
   const totalMonthlyCost = recurrings
     .filter(item => item.status === 'Active')
     .reduce((sum, item) => sum + item.amount, 0);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-7xl mx-auto">
       
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
             <Repeat className="text-primary-600" /> Recurring Transactions
           </h1>
-          <p className="text-sm text-gray-500 mt-1">Manage your subscriptions and fixed monthly bills.</p>
+          <p className="text-sm text-slate-500 mt-1 font-medium">Manage your subscriptions and fixed monthly bills.</p>
         </div>
-        <button className="btn-primary flex items-center gap-2">
-          <Repeat size={16} /> Add Recurring
-        </button>
+        <Button>
+          <span className="flex items-center gap-2"><Plus size={18} /> Add Recurring</span>
+        </Button>
       </div>
 
       {/* Summary Card */}
-      <div className="bg-gradient-to-r from-primary-600 to-primary-800 rounded-xl p-6 text-white shadow-lg flex justify-between items-center">
-        <div>
-          <p className="text-primary-100 text-sm font-medium mb-1">Total Active Monthly Cost</p>
-          <h2 className="text-3xl font-bold">{formatCurrency(totalMonthlyCost)}</h2>
+      <div className="bg-gradient-to-br from-primary-900 to-slate-900 rounded-2xl p-6 md:p-8 text-white shadow-xl flex justify-between items-center relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-4 opacity-5 transition-transform group-hover:scale-110">
+          <CreditCard size={160} />
         </div>
-        <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
-          <Calendar size={28} />
+        <div className="relative z-10">
+          <p className="text-primary-200 text-sm font-bold uppercase tracking-wider mb-2">Total Active Monthly Cost</p>
+          <h2 className="text-4xl font-bold">{formatCurrency(totalMonthlyCost)}</h2>
+        </div>
+        <div className="relative z-10 p-4 bg-white/10 rounded-2xl backdrop-blur-md hidden sm:block">
+          <Calendar size={32} className="text-white" />
         </div>
       </div>
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recurrings.map((item) => (
           <div 
             key={item.id} 
-            className={`bg-white rounded-xl border transition-all duration-300 p-5 shadow-sm hover:shadow-md flex flex-col ${
-              item.status === 'Paused' ? 'opacity-70 border-gray-200 bg-gray-50/50' : 'border-primary-100'
+            className={`bg-white rounded-2xl border transition-all duration-300 p-5 shadow-sm hover:shadow-md flex flex-col ${
+              item.status === 'Paused' ? 'opacity-70 border-slate-200 bg-slate-50' : 'border-slate-100'
             }`}
           >
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center gap-3">
-                <div className={`p-2.5 rounded-lg ${item.status === 'Active' ? 'bg-primary-50 text-primary-600' : 'bg-gray-200 text-gray-500'}`}>
+                <div className={`p-3 rounded-xl ${item.status === 'Active' ? 'bg-primary-50 text-primary-600' : 'bg-slate-200 text-slate-500'}`}>
                   <Repeat size={20} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-800">{item.title}</h3>
-                  <p className="text-xs text-gray-500 font-medium">{item.frequency}</p>
+                  <h3 className="font-bold text-slate-800">{item.title}</h3>
+                  <p className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-0.5">{item.frequency}</p>
                 </div>
               </div>
               
               <button 
                 onClick={() => toggleStatus(item.id)}
-                className={`p-1.5 rounded-full transition-colors ${
+                className={`p-2 rounded-xl transition-all ${
                   item.status === 'Active' 
-                    ? 'bg-green-100 text-green-700 hover:bg-green-200' 
-                    : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                    ? 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' 
+                    : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
                 }`}
                 title={item.status === 'Active' ? 'Pause' : 'Activate'}
               >
-                {item.status === 'Active' ? <Pause size={14} /> : <Play size={14} />}
+                {item.status === 'Active' ? <Pause size={16} /> : <Play size={16} />}
               </button>
             </div>
             
-            <div className="mt-auto pt-4 border-t border-gray-100 flex justify-between items-end">
+            <div className="mt-auto pt-4 border-t border-slate-100 flex justify-between items-end">
               <div>
-                <p className="text-xs text-gray-500 mb-1 flex items-center gap-1">
-                  <Calendar size={12} /> Next Payment
+                <p className="text-xs text-slate-500 font-bold mb-1 flex items-center gap-1">
+                  <Calendar size={14} /> Next Payment
                 </p>
-                <p className="font-semibold text-sm text-gray-700">
+                <p className="font-semibold text-sm text-slate-700">
                   {new Date(item.nextDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                 </p>
               </div>
-              <p className={`text-xl font-bold ${item.status === 'Active' ? 'text-gray-800' : 'text-gray-400 line-through'}`}>
+              <p className={`text-xl font-bold ${item.status === 'Active' ? 'text-slate-800' : 'text-slate-400 line-through'}`}>
                 {formatCurrency(item.amount)}
               </p>
             </div>
@@ -103,9 +105,9 @@ export default function Recurring() {
       </div>
 
       {/* Info Alert */}
-      <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3 text-blue-800 text-sm mt-8">
-        <AlertCircle size={20} className="shrink-0" />
-        <p>Recurring transactions will be automatically added to your Expenses on their due date once the backend is connected.</p>
+      <div className="bg-primary-50 border border-primary-100 rounded-2xl p-5 flex gap-4 text-primary-800 text-sm font-medium mt-8 items-start">
+        <AlertCircle size={22} className="shrink-0 text-primary-600" />
+        <p className="leading-relaxed">Recurring transactions will be automatically added to your Expenses on their due date once the backend is connected.</p>
       </div>
 
     </div>

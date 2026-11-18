@@ -23,10 +23,10 @@ export default function Insights() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2 text-gray-800">
+          <h1 className="text-2xl font-bold flex items-center gap-2 text-slate-800">
             AI Insights <Sparkles className="text-amber-500" size={24} />
           </h1>
-          <p className="text-sm text-gray-500 mt-1">Smart analysis of your spending habits.</p>
+          <p className="text-sm text-slate-500 mt-1 font-medium">Smart analysis of your spending habits.</p>
         </div>
         <Button 
           onClick={handleGenerate} 
@@ -39,69 +39,69 @@ export default function Insights() {
       </div>
 
       {/* AI Summary Banner */}
-      <div className="bg-gradient-to-br from-indigo-900 to-slate-900 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-4 opacity-10">
-          <Bot size={120} />
+      <div className="bg-gradient-to-br from-primary-900 to-slate-900 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden group">
+        <div className="absolute top-0 right-0 p-4 opacity-10 transition-transform group-hover:scale-110">
+          <Bot size={140} />
         </div>
         <div className="relative z-10">
           <div className="flex items-center gap-2 mb-3">
             <div className="p-1.5 bg-white/20 rounded-lg backdrop-blur-sm">
               <Bot size={20} className="text-white" />
             </div>
-            <h2 className="text-lg font-semibold tracking-wide">FinTrack AI Assistant</h2>
+            <h2 className="text-lg font-bold tracking-wide">FinTrack AI Assistant</h2>
           </div>
-          <p className="text-indigo-100 leading-relaxed text-sm md:text-base">
+          <p className="text-primary-100 leading-relaxed text-sm md:text-base font-medium">
             Based on your recent expenses, you're doing great on food spending! However, your bills have exceeded the limit. I've prepared a few personalized tips for you below.
           </p>
         </div>
       </div>
 
-      {/* Insights List (With animation class) */}
-      <div className={`space-y-4 transition-opacity duration-500 ${isGenerating ? 'opacity-30' : 'opacity-100'}`}>
+      {/* Insights List */}
+      <div className={`space-y-4 transition-all duration-500 ${isGenerating ? 'opacity-30 blur-[2px]' : 'opacity-100 blur-0'}`}>
         
         {/* Insight 1 - Warning */}
-        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm flex flex-col md:flex-row gap-4 hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div className="absolute left-0 top-0 bottom-0 w-1 bg-red-500"></div>
+        <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm flex flex-col md:flex-row gap-4 hover:shadow-md transition-all relative overflow-hidden group">
+          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-red-500"></div>
           <div className="p-3 bg-red-50 rounded-xl text-red-600 h-fit shrink-0">
             <AlertTriangle size={24} />
           </div>
           <div className="flex-1">
             <div className="flex justify-between items-start">
-              <h3 className="font-bold text-lg text-gray-800">High Spending on Bills</h3>
-              <span className="text-xs font-semibold bg-red-100 text-red-700 px-2 py-1 rounded-md">Action Needed</span>
+              <h3 className="font-bold text-lg text-slate-800">High Spending on Bills</h3>
+              <span className="text-xs font-bold bg-red-100 text-red-700 px-3 py-1 rounded-lg">Action Needed</span>
             </div>
-            <p className="text-gray-600 mt-2 text-sm leading-relaxed">
+            <p className="text-slate-600 mt-2 text-sm leading-relaxed font-medium">
               You have exceeded your Bills budget by <strong className="text-red-600">Rs 2,000</strong> this month. Consider reducing your electricity usage or renegotiating your internet plan to save money.
             </p>
           </div>
         </div>
 
         {/* Insight 2 - Positive */}
-        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm flex flex-col md:flex-row gap-4 hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div className="absolute left-0 top-0 bottom-0 w-1 bg-green-500"></div>
-          <div className="p-3 bg-green-50 rounded-xl text-green-600 h-fit shrink-0">
+        <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm flex flex-col md:flex-row gap-4 hover:shadow-md transition-all relative overflow-hidden group">
+          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-emerald-500"></div>
+          <div className="p-3 bg-emerald-50 rounded-xl text-emerald-600 h-fit shrink-0">
             <TrendingDown size={24} />
           </div>
           <div className="flex-1">
             <div className="flex justify-between items-start">
-              <h3 className="font-bold text-lg text-gray-800">Good job on Food Savings!</h3>
-              <span className="text-xs font-semibold bg-green-100 text-green-700 px-2 py-1 rounded-md flex items-center gap-1"><CheckCircle2 size={12}/> On Track</span>
+              <h3 className="font-bold text-lg text-slate-800">Good job on Food Savings!</h3>
+              <span className="text-xs font-bold bg-emerald-100 text-emerald-700 px-3 py-1 rounded-lg flex items-center gap-1"><CheckCircle2 size={14}/> On Track</span>
             </div>
-            <p className="text-gray-600 mt-2 text-sm leading-relaxed">
-              Your food expenses are <strong className="text-green-600">15% lower</strong> than last month. You are on track to meet your Food budget. Keep up the good work!
+            <p className="text-slate-600 mt-2 text-sm leading-relaxed font-medium">
+              Your food expenses are <strong className="text-emerald-600">15% lower</strong> than last month. You are on track to meet your Food budget. Keep up the good work!
             </p>
           </div>
         </div>
 
         {/* Insight 3 - Tip */}
-        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm flex flex-col md:flex-row gap-4 hover:shadow-md transition-shadow relative overflow-hidden group">
-          <div className="absolute left-0 top-0 bottom-0 w-1 bg-amber-500"></div>
+        <div className="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm flex flex-col md:flex-row gap-4 hover:shadow-md transition-all relative overflow-hidden group">
+          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-amber-500"></div>
           <div className="p-3 bg-amber-50 rounded-xl text-amber-600 h-fit shrink-0">
             <Lightbulb size={24} />
           </div>
           <div className="flex-1">
-            <h3 className="font-bold text-lg text-gray-800">Subscription Review</h3>
-            <p className="text-gray-600 mt-2 text-sm leading-relaxed">
+            <h3 className="font-bold text-lg text-slate-800">Subscription Review</h3>
+            <p className="text-slate-600 mt-2 text-sm leading-relaxed font-medium">
               You have <strong>3 active monthly subscriptions</strong> (Netflix, Gym, etc.) totaling <strong>Rs 31,500</strong>. Review them to see if you are actually using all of them.
             </p>
           </div>
