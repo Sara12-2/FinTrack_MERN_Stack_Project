@@ -10,7 +10,7 @@ A full-stack personal finance app built with the **MERN stack** that helps you t
 
 ---
 
-## 🚀 Features
+##  Features
 
 - 🔐 **JWT Authentication** – Secure register/login with password hashing
 - 💸 **Expense Tracking** – Add, edit, delete, and filter expenses by category/date
