@@ -16,7 +16,6 @@ A full-stack personal finance app built with the **MERN stack** that helps you t
 - 💸 **Expense Tracking** – Add, edit, delete, and filter expenses by category/date
 - 📊 **Analytics Dashboard** – Interactive pie & bar charts (Recharts)
 - 🎯 **Budget Management** – Set monthly budgets per category with progress tracking
-- 🔁 **Recurring Transactions** – Auto-create bills (daily/weekly/monthly) via cron jobs
 - 🤖 **AI Spending Insights** – Personalized saving tips powered by OpenAI
 - 📱 **Responsive UI** – Tailwind CSS with mobile-friendly layout
 
